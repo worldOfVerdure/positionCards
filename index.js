@@ -37,48 +37,33 @@ addPositionBtn.addEventListener("click", ()=>{
   toggleInnerBtn(); // TODO: Look up event delegation for a better solution
 });
 
-function createFormFac (fragment, parentElement) {
-  // TODO: Make sure to have the classes taught as an array.
-  const classLabel = document.createElement("label");
-  classLabel.setAttribute("for", "class");
-  classLabel.innerHTML = "Classes Teaching:";
-  fragment.parentElement.appendChild(classLabel);
-  const classInput = document.createElement("input");
-  classInput.setAttribute("type", "text");
-  classInput.setAttribute("id", "class");
-  classInput.setAttribute("name", "user_class");
-  fragment.parentElement.appendChild(classInput);
-
-  const moneyLabel = document.createElement("label");
-  moneyLabel.setAttribute("for", "money");
-  moneyLabel.innerHTML = "Salary:";
-  parentElement.appendChild(moneyLabel);
-  const moneyInput = document.createElement("input");
-  moneyInput.setAttribute("type", "number"); //Number correct?
-  moneyInput.setAttribute("id", "money");
-  moneyInput.setAttribute("name", "user_salary");
-  parentElement.appendChild(moneyInput);
-
-  const researchLabel = document.createElement("label");
-  researchLabel.setAttribute("for", "research");
-  researchLabel.innerHTML = "Research Status:";
-  parentElement.appendChild(researchLabel);
-  const researchInput = document.createElement("input");
-  researchInput.setAttribute("type", "text");
-  researchInput.setAttribute("id", "research");
-  researchInput.setAttribute("name", "user_research");
-  parentElement.appendChild(researchInput);
-
-  return fragment;
-}
-
 // Event Listeners that populate the correct form to submit to make a true college member.
-function createFormPerson (memberFunc) {
+function createFragment (memberType) {
   let fragment = new DocumentFragment();
 
   const newDiv = document.createElement("div");
   newDiv.classList.add("card");
   fragment.append(newDiv); // New div added to fragment
+
+  const newH2 = document.createElement("h2");
+  newH2.classList.add("formH2");
+  switch (memberType) {
+    case 0:
+      newH2.innerText = "Faculty";
+      break;
+    case 1:
+      newH2.innerText = "Staff";
+      break;
+    case 2:
+      newH2.innerText = "Admin";
+      break;
+    case 3:
+      newH2.innerText = "Student";
+      break;
+    default:
+      newH2.innerText = "Error";
+  }
+  newDiv.appendChild(newH2);
 
   const newForm = document.createElement("form");
   newForm.setAttribute("action", "");
@@ -86,8 +71,8 @@ function createFormPerson (memberFunc) {
   newDiv.appendChild(newForm);
 
   const nameLabel = document.createElement("label");
-  nameLabel.setAttribute("for", "name"); //htmlFor property of a label might be a security risk.
-  nameLabel.innerHTML = "Name:";
+  nameLabel.htmlFor = "name";
+  nameLabel.innerText = "Name:";
   newForm.appendChild(nameLabel);
   const nameInput = document.createElement("input");
   nameInput.setAttribute("type", "text");
@@ -96,8 +81,8 @@ function createFormPerson (memberFunc) {
   newForm.appendChild(nameInput);
 
   const idLabel = document.createElement("label");
-  idLabel.setAttribute("for", "id");
-  idLabel.innerHTML = "ID:";
+  idLabel.htmlFor = "id";
+  idLabel.innerText = "ID:";
   newForm.appendChild(idLabel);
   const idInput = document.createElement("input");
   idInput.setAttribute("type", "text");
@@ -106,8 +91,8 @@ function createFormPerson (memberFunc) {
   newForm.appendChild(idInput);
 
   const emailLabel = document.createElement("label");
-  emailLabel.setAttribute("for", "email");
-  emailLabel.innerHTML = "Email:";
+  emailLabel.htmlFor = "email";
+  emailLabel.innerText = "Email:";
   newForm.appendChild(emailLabel);
   const emailInput = document.createElement("input");
   emailInput.setAttribute("type", "email");
@@ -115,47 +100,64 @@ function createFormPerson (memberFunc) {
   emailInput.setAttribute("name", "user_email");
   newForm.appendChild(emailInput);
 
-  return memberFunc(newForm, fragment);
-}
-
-// Function to make and return fragment
-function createFragment (memberType) {
   switch (memberType) {
     case 0:
-      fragment = createFormPerson(createFormFac);
+      const classLabel = document.createElement("label");
+      classLabel.htmlFor = "class";
+      classLabel.innerText = "Classes Teaching:";
+      newForm.appendChild(classLabel);
+      const classInput = document.createElement("input");
+      classInput.setAttribute("type", "text");
+      classInput.setAttribute("id", "class");
+      classInput.setAttribute("name", "user_class");
+      newForm.appendChild(classInput);
+
+      const moneyLabel = document.createElement("label");
+      moneyLabel.htmlFor = "salary";
+      moneyLabel.innerText = "Salary:";
+      newForm.appendChild(moneyLabel);
+      const moneyInput = document.createElement("input");
+      moneyInput.setAttribute("type", "text"); //Number correct?
+      moneyInput.setAttribute("id", "salary");
+      moneyInput.setAttribute("name", "user_salary");
+      newForm.appendChild(moneyInput);
+
+      const researchLabel = document.createElement("label");
+      researchLabel.htmlFor = "research";
+      researchLabel.innerText = "Research Status:";
+      newForm.appendChild(researchLabel);
+      const researchInput = document.createElement("input");
+      researchInput.setAttribute("type", "text");
+      researchInput.setAttribute("id", "research");
+      researchInput.setAttribute("name", "user_research");
+      newForm.appendChild(researchInput);
       break;
+
+    case 1:
+      break;
+
+    case 2:
+      break;
+
+    case 3:
+      break;
+    
     default:
-      // Add some error message to the user.
   }
   return fragment;
 }
 
-function createCard (memberType) { 
+function createForm (memberType) {
+  toggleInnerBtn();
+  // addPositionBtn.disabled = true; Wahy?
   const theMain = document.querySelector("main");
-  switch(memberType) {
-    case 0: // Faculty.
-      const fragment = createFragment(memberType);
-      theMain.appendChild(fragment); //Maybe prepend
-      // Correctly append fragment to existing document
-      break;
-    case 1:
-      // Make appropriate elements
-      break;
-    case 2:
-      // Make appropriate elements
-      break;
-    case 3:
-      // Make appropriate elements
-      break;
-    default:
-      // Textbox that gives an error message and then deletes the text box upon click out.
-
-  }
+  const fragment = createFragment(memberType);
+  theMain.appendChild(fragment);
 }
 // Adds functionality to the inner buttons via aEL. 
 hiddenBtns.forEach((element, index)=>{
   element.addEventListener("click", ()=>{
-    createCard(index);
+    createForm(index);
   })});
 // END: (1) Objects involving creating college members
 

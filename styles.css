@@ -10,6 +10,7 @@ body {
 
 h1 {
   padding-left: 1.5rem;
+  font-size: 5rem;
 }
 
 hr {
@@ -62,6 +63,30 @@ button:hover {
   min-width: 45vw;
   background-color: #ADD8E6;
   margin: 4% 2%;
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  flex: 1 1 auto;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 3rem;
+}
+
+.formH2 {
+  font-size: 4rem;
+  margin: 0;
+}
+
+label {
+  display: block;
+  font-size: 2.5rem;
+  margin-bottom: .9rem;
+}
+
+input {
+  width: clamp(30%, fit-content, 70%);
+  display: block;
+  margin-bottom: .6rem; 
 }
 /*
 .professor {

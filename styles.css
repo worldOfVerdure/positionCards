@@ -1,0 +1,81 @@
+html {
+  font-size: 62.5%;
+}
+
+body {
+  font-size: 1.6rem;
+  background-color: #4fd3ff;
+  margin: 0;
+}
+
+h1 {
+  padding-left: 1.5rem;
+}
+
+hr {
+  width: clamp(15rem, 25%, 35rem);
+  margin-left: 2%;
+  border-color: #000;
+}
+
+button, #iconTray {
+  background-color: #f3efea;
+}
+
+button {
+  max-width: fit-content;
+  max-height: 5rem;
+  padding: 0;
+  border: 0;
+}
+
+button > img {
+  width: 5rem;
+  height: 5rem;
+}
+
+#iconTray {
+  width: fit-content;
+  max-height: 5rem;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  gap: 3rem;
+  margin-left: 2%;
+}
+
+#iconTray>button:last-child {
+  padding-right: 2%;
+}
+
+.innerBtn {
+  display: none;
+}
+
+button:hover {
+  background-color: #EAE4DB;
+  cursor: pointer;
+}
+
+.card {
+  min-height: 45vh;
+  min-width: 45vw;
+  background-color: #ADD8E6;
+  margin: 4% 2%;
+}
+/*
+.professor {
+
+}
+
+.staff {
+
+}
+
+.student {
+
+}
+
+.administration {
+  
+} */

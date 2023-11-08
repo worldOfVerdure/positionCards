@@ -78,6 +78,7 @@ function createFragment (memberType) {
   nameInput.setAttribute("type", "text");
   nameInput.setAttribute("id", "name");
   nameInput.setAttribute("name", "user_name");
+  nameInput.setAttribute("required", "");
   newForm.appendChild(nameInput);
 
   const idLabel = document.createElement("label");
@@ -88,6 +89,7 @@ function createFragment (memberType) {
   idInput.setAttribute("type", "text");
   idInput.setAttribute("id", "id");
   idInput.setAttribute("name", "user_id");
+  idInput.setAttribute("required", "");
   newForm.appendChild(idInput);
 
   const emailLabel = document.createElement("label");
@@ -98,18 +100,20 @@ function createFragment (memberType) {
   emailInput.setAttribute("type", "email");
   emailInput.setAttribute("id", "email");
   emailInput.setAttribute("name", "user_email");
+  emailInput.setAttribute("required", "");
   newForm.appendChild(emailInput);
 
   switch (memberType) {
     case 0:
       const classLabel = document.createElement("label");
       classLabel.htmlFor = "class";
-      classLabel.innerText = "Classes Teaching:";
+      classLabel.innerText = "Classes:";
       newForm.appendChild(classLabel);
       const classInput = document.createElement("input");
       classInput.setAttribute("type", "text");
       classInput.setAttribute("id", "class");
       classInput.setAttribute("name", "user_class");
+      classInput.setAttribute("required", "");
       newForm.appendChild(classInput);
 
       const moneyLabel = document.createElement("label");
@@ -120,19 +124,42 @@ function createFragment (memberType) {
       moneyInput.setAttribute("type", "text"); //Number correct?
       moneyInput.setAttribute("id", "salary");
       moneyInput.setAttribute("name", "user_salary");
+      moneyInput.setAttribute("required", "");
       newForm.appendChild(moneyInput);
 
-      const researchLabel = document.createElement("label");
-      researchLabel.htmlFor = "research";
-      researchLabel.innerText = "Research Status:";
-      newForm.appendChild(researchLabel);
-      const researchInput = document.createElement("input");
-      researchInput.setAttribute("type", "text");
-      researchInput.setAttribute("id", "research");
-      researchInput.setAttribute("name", "user_research");
-      newForm.appendChild(researchInput);
+      const researchFieldset = document.createElement("fieldset");
+      newForm.appendChild(researchFieldset);
+      const researchLegend = document.createElement("legend");
+      researchLegend.innerText = "Is this faculty member conducting research?";
+      researchFieldset.appendChild(researchLegend);
+      const inputTrue = document.createElement("input");
+      inputTrue.setAttribute("type", "radio");
+      inputTrue.setAttribute("id", "trueRadio");
+      inputTrue.setAttribute("name", "research");
+      inputTrue.setAttribute("value", "y");
+      inputTrue.setAttribute("required", "");
+      inputTrue.classList.add("radioInpLab");
+      researchFieldset.appendChild(inputTrue);
+      const labelTrue = document.createElement("label");
+      labelTrue.innerText = "Yes";
+      labelTrue.setAttribute("for", "trueRadio");
+      labelTrue.classList.add("radioInpLab");
+      labelTrue.classList.add("labelYes");
+      researchFieldset.appendChild(labelTrue);
+      const inputFalse = document.createElement("input");
+      inputFalse.setAttribute("type", "radio");
+      inputFalse.setAttribute("id", "falseRadio");
+      inputFalse.setAttribute("name", "research");
+      inputFalse.setAttribute("value", "n");
+      inputFalse.setAttribute("required", "");
+      inputFalse.classList.add("radioInpLab");
+      researchFieldset.appendChild(inputFalse);
+      const labelFalse = document.createElement("label");
+      labelFalse.innerText = "No";
+      labelFalse.setAttribute("for", "falseRadio");
+      labelFalse.classList.add("radioInpLab");
+      researchFieldset.appendChild(labelFalse);
       break;
-
     case 1:
       break;
 
@@ -144,6 +171,11 @@ function createFragment (memberType) {
     
     default:
   }
+  const newSubmitBtn = document.createElement("button");
+  newSubmitBtn.classList.add("submitBtn");
+  newSubmitBtn.innerText = "Submit";
+  newForm.appendChild(newSubmitBtn);
+
   return fragment;
 }
 

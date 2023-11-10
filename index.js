@@ -65,6 +65,16 @@ function createFragment (memberType) {
   }
   newDiv.appendChild(newH2);
 
+  const validateSpanText = document.createElement("span");
+  /* Plan to add green check mark.
+  1) Make span.
+  2) Append to fragment
+  3) Use css stylings to add green check mark to span
+  3a) Use valid psuedo-class to add green check mark with content property when valid input is given
+  3b) Use ::after psuedo-element to add green check mark as the last child of the selected element.
+  3c) Hexcode for check mark &#9989;
+  */
+
   const newForm = document.createElement("form");
   newForm.setAttribute("action", "");
   newForm.setAttribute("method", "post");
@@ -80,15 +90,17 @@ function createFragment (memberType) {
   nameInput.setAttribute("name", "user_name");
   nameInput.setAttribute("required", "");
   newForm.appendChild(nameInput);
+  newForm.appendChild(validateSpanText);
 
   const idLabel = document.createElement("label");
   idLabel.htmlFor = "id";
-  idLabel.innerText = "ID:";
+  idLabel.innerText = "ID: (5 numbers)";
   newForm.appendChild(idLabel);
   const idInput = document.createElement("input");
   idInput.setAttribute("type", "text");
   idInput.setAttribute("id", "id");
   idInput.setAttribute("name", "user_id");
+  idInput.setAttribute("value", "p");
   idInput.setAttribute("required", "");
   newForm.appendChild(idInput);
 
@@ -144,7 +156,6 @@ function createFragment (memberType) {
       labelTrue.innerText = "Yes";
       labelTrue.setAttribute("for", "trueRadio");
       labelTrue.classList.add("radioInpLab");
-      labelTrue.classList.add("labelYes");
       researchFieldset.appendChild(labelTrue);
       const inputFalse = document.createElement("input");
       inputFalse.setAttribute("type", "radio");
@@ -181,7 +192,6 @@ function createFragment (memberType) {
 
 function createForm (memberType) {
   toggleInnerBtn();
-  // addPositionBtn.disabled = true; Wahy?
   const theMain = document.querySelector("main");
   const fragment = createFragment(memberType);
   theMain.appendChild(fragment);

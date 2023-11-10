@@ -11,6 +11,7 @@ body {
 h1 {
   padding-left: 1.5rem;
   font-size: 5rem;
+  font-family: 'Abril Fatface', serif;
 }
 
 hr {
@@ -74,28 +75,40 @@ button:hover {
 
 .formH2 {
   font-size: 4rem;
+  font-family: 'Neuton', serif;
   margin: 0;
 }
 
 label {
   display: block;
   font-size: 2.5rem;
+  font-family: 'Rufina', serif;
   margin-bottom: .9rem;
 }
 
 input {
   width: clamp(30%, fit-content, 70%);
-  display: block;
+  display: inline-block;
   font-size: 2.5rem;
-  margin-bottom: .6rem; 
+  margin: 0 2rem .6rem 0;
+}
+/* :valid is a psuedo-class used */
+input[id="name"]:valid {
+  outline: .2rem solid #34b233;
+}
+
+input[id="name"]:valid + span::after {
+  content: "✓";
+  color: #34b233;
+  font-size: 3rem;
+}
+
+fieldset {
+  margin: 2rem 0;
 }
 
 legend {
   font-size: 1.8rem;
-}
-
-.labelYes {
-  margin-right: 2rem;
 }
 
 .radioInpLab {
@@ -103,9 +116,23 @@ legend {
   margin-right: .8rem;
 }
 
+input[type="radio"] {
+  margin-left: 5.65rem;
+}
+
 .submitBtn {
   font-size: 2.5rem;
+  font-family: 'Rufina', serif;
+  color: #fff;
+  background-color: #34b233;
   width: 30%;
+  height: 5rem;
+  max-width: 3000px;
+  border-radius: .5rem;
+}
+
+.submitBtn:hover {
+  background-color: #49f249;
 }
 /*
 .professor {

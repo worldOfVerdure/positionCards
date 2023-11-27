@@ -66,14 +66,7 @@ function createFragment (memberType) {
   newDiv.appendChild(newH2);
 
   const validateSpanText = document.createElement("span");
-  /* Plan to add green check mark.
-  1) Make span.
-  2) Append to fragment
-  3) Use css stylings to add green check mark to span
-  3a) Use valid psuedo-class to add green check mark with content property when valid input is given
-  3b) Use ::after psuedo-element to add green check mark as the last child of the selected element.
-  3c) Hexcode for check mark &#9989;
-  */
+  const validateSpanText2 = document.createElement("span");
 
   const newForm = document.createElement("form");
   newForm.setAttribute("action", "");
@@ -82,13 +75,16 @@ function createFragment (memberType) {
 
   const nameLabel = document.createElement("label");
   nameLabel.htmlFor = "name";
-  nameLabel.innerText = "Name:";
+  nameLabel.innerText = "Name (first and last):";
   newForm.appendChild(nameLabel);
   const nameInput = document.createElement("input");
   nameInput.setAttribute("type", "text");
   nameInput.setAttribute("id", "name");
   nameInput.setAttribute("name", "user_name");
   nameInput.setAttribute("required", "");
+  nameInput.setAttribute("title", "Only alphabetic characters.");
+  nameInput.setAttribute("pattern", "^[A-Za-z]+(\\s[A-Za-z]+)+$");
+  nameInput.classList.add("formValidate");
   newForm.appendChild(nameInput);
   newForm.appendChild(validateSpanText);
 
@@ -100,9 +96,13 @@ function createFragment (memberType) {
   idInput.setAttribute("type", "text");
   idInput.setAttribute("id", "id");
   idInput.setAttribute("name", "user_id");
-  idInput.setAttribute("value", "p");
   idInput.setAttribute("required", "");
+  idInput.setAttribute("title", "Enter a five digit ID");
+  idInput.setAttribute("required", "");
+  idInput.classList.add("formValidate");
+  idInput.setAttribute("pattern", "^\\d{5}$");
   newForm.appendChild(idInput);
+  newForm.appendChild(validateSpanText2);
 
   const emailLabel = document.createElement("label");
   emailLabel.htmlFor = "email";

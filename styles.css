@@ -60,8 +60,7 @@ button:hover {
 }
 
 .card {
-  min-height: 45vh;
-  min-width: 45vw;
+  width: 85%;
   background-color: #ADD8E6;
   margin: 4% 2%;
   padding: 2rem;
@@ -87,21 +86,33 @@ label {
 }
 
 input {
-  width: clamp(30%, fit-content, 70%);
+  width: clamp(30%, fit-content, 70%); /* Not working as expected. */
   display: inline-block;
   font-size: 2.5rem;
   margin: 0 2rem .6rem 0;
 }
+
 /* :valid is a psuedo-class used */
-input[id="name"]:valid {
+input[class="formValidate"]:valid {
   outline: .2rem solid #34b233;
 }
 
-input[id="name"]:valid + span::after {
+input[class="formValidate"]:valid + span::after {
   content: "✓";
   color: #34b233;
   font-size: 3rem;
 }
+
+input[class="formValidate"]:user-invalid {
+  outline: .2rem solid #FF6347;
+}
+
+input[class="formValidate"]:user-invalid + span::after {
+  content: "✖";
+  color: #FF6347;
+  font-size: 3rem;
+}
+/* End of form validation */
 
 fieldset {
   margin: 2rem 0;
@@ -127,26 +138,15 @@ input[type="radio"] {
   background-color: #34b233;
   width: 30%;
   height: 5rem;
-  max-width: 3000px;
   border-radius: .5rem;
 }
 
 .submitBtn:hover {
   background-color: #49f249;
 }
-/*
-.professor {
 
+@media (min-width: 900px) {
+  .card {
+    width: 38%;
+  }
 }
-
-.staff {
-
-}
-
-.student {
-
-}
-
-.administration {
-  
-} */

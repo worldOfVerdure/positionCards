@@ -37,6 +37,63 @@ addPositionBtn.addEventListener("click", ()=>{
   toggleInnerBtn(); // TODO: Look up event delegation for a better solution
 });
 
+function finishFaculty (newForm) {
+  const classLabel = document.createElement("label");
+  classLabel.htmlFor = "class";
+  classLabel.innerText = "Classes:";
+  newForm.appendChild(classLabel);
+  const classInput = document.createElement("input");
+  classInput.setAttribute("type", "text");
+  classInput.setAttribute("id", "class");
+  classInput.setAttribute("name", "user_class");
+  classInput.setAttribute("required", "");
+  newForm.appendChild(classInput);
+
+  const moneyLabel = document.createElement("label");
+  moneyLabel.htmlFor = "salary";
+  moneyLabel.innerText = "Salary:";
+  newForm.appendChild(moneyLabel);
+  const moneyInput = document.createElement("input");
+  moneyInput.setAttribute("type", "text"); //Number correct?
+  moneyInput.setAttribute("id", "salary");
+  moneyInput.setAttribute("name", "user_salary");
+  moneyInput.setAttribute("required", "");
+  newForm.appendChild(moneyInput);
+
+  const researchFieldset = document.createElement("fieldset");
+  newForm.appendChild(researchFieldset);
+  const researchLegend = document.createElement("legend");
+  researchLegend.innerText = "Is this faculty member conducting research?";
+  researchFieldset.appendChild(researchLegend);
+  const inputTrue = document.createElement("input");
+  inputTrue.setAttribute("type", "radio");
+  inputTrue.setAttribute("id", "trueRadio");
+  inputTrue.setAttribute("name", "research");
+  inputTrue.setAttribute("value", "y");
+  inputTrue.setAttribute("required", "");
+  inputTrue.classList.add("radioInpLab");
+  researchFieldset.appendChild(inputTrue);
+  const labelTrue = document.createElement("label");
+  labelTrue.innerText = "Yes";
+  labelTrue.setAttribute("for", "trueRadio");
+  labelTrue.classList.add("radioInpLab");
+  researchFieldset.appendChild(labelTrue);
+  const inputFalse = document.createElement("input");
+  inputFalse.setAttribute("type", "radio");
+  inputFalse.setAttribute("id", "falseRadio");
+  inputFalse.setAttribute("name", "research");
+  inputFalse.setAttribute("value", "n");
+  inputFalse.setAttribute("required", "");
+  inputFalse.classList.add("radioInpLab");
+  researchFieldset.appendChild(inputFalse);
+  const labelFalse = document.createElement("label");
+  labelFalse.innerText = "No";
+  labelFalse.setAttribute("for", "falseRadio");
+  labelFalse.classList.add("radioInpLab");
+  researchFieldset.appendChild(labelFalse);
+
+  return newForm;
+}
 // Event Listeners that populate the correct form to submit to make a true college member.
 function createFragment (memberType) {
   let fragment = new DocumentFragment();
@@ -68,7 +125,7 @@ function createFragment (memberType) {
   const validateSpanText = document.createElement("span");
   const validateSpanText2 = document.createElement("span");
 
-  const newForm = document.createElement("form");
+  let newForm = document.createElement("form");
   newForm.setAttribute("action", "");
   newForm.setAttribute("method", "post");
   newDiv.appendChild(newForm);
@@ -83,7 +140,7 @@ function createFragment (memberType) {
   nameInput.setAttribute("name", "user_name");
   nameInput.setAttribute("required", "");
   nameInput.setAttribute("title", "Only alphabetic characters.");
-  nameInput.setAttribute("pattern", "^[A-Za-z]+(\\s[A-Za-z]+)+$");
+  nameInput.setAttribute("pattern", "^[A-Za-z]+(\\s[A-Za-z]+)+$"); //add name-name as an || with the \\s portion
   nameInput.classList.add("formValidate");
   newForm.appendChild(nameInput);
   newForm.appendChild(validateSpanText);
@@ -117,59 +174,7 @@ function createFragment (memberType) {
 
   switch (memberType) {
     case 0:
-      const classLabel = document.createElement("label");
-      classLabel.htmlFor = "class";
-      classLabel.innerText = "Classes:";
-      newForm.appendChild(classLabel);
-      const classInput = document.createElement("input");
-      classInput.setAttribute("type", "text");
-      classInput.setAttribute("id", "class");
-      classInput.setAttribute("name", "user_class");
-      classInput.setAttribute("required", "");
-      newForm.appendChild(classInput);
-
-      const moneyLabel = document.createElement("label");
-      moneyLabel.htmlFor = "salary";
-      moneyLabel.innerText = "Salary:";
-      newForm.appendChild(moneyLabel);
-      const moneyInput = document.createElement("input");
-      moneyInput.setAttribute("type", "text"); //Number correct?
-      moneyInput.setAttribute("id", "salary");
-      moneyInput.setAttribute("name", "user_salary");
-      moneyInput.setAttribute("required", "");
-      newForm.appendChild(moneyInput);
-
-      const researchFieldset = document.createElement("fieldset");
-      newForm.appendChild(researchFieldset);
-      const researchLegend = document.createElement("legend");
-      researchLegend.innerText = "Is this faculty member conducting research?";
-      researchFieldset.appendChild(researchLegend);
-      const inputTrue = document.createElement("input");
-      inputTrue.setAttribute("type", "radio");
-      inputTrue.setAttribute("id", "trueRadio");
-      inputTrue.setAttribute("name", "research");
-      inputTrue.setAttribute("value", "y");
-      inputTrue.setAttribute("required", "");
-      inputTrue.classList.add("radioInpLab");
-      researchFieldset.appendChild(inputTrue);
-      const labelTrue = document.createElement("label");
-      labelTrue.innerText = "Yes";
-      labelTrue.setAttribute("for", "trueRadio");
-      labelTrue.classList.add("radioInpLab");
-      researchFieldset.appendChild(labelTrue);
-      const inputFalse = document.createElement("input");
-      inputFalse.setAttribute("type", "radio");
-      inputFalse.setAttribute("id", "falseRadio");
-      inputFalse.setAttribute("name", "research");
-      inputFalse.setAttribute("value", "n");
-      inputFalse.setAttribute("required", "");
-      inputFalse.classList.add("radioInpLab");
-      researchFieldset.appendChild(inputFalse);
-      const labelFalse = document.createElement("label");
-      labelFalse.innerText = "No";
-      labelFalse.setAttribute("for", "falseRadio");
-      labelFalse.classList.add("radioInpLab");
-      researchFieldset.appendChild(labelFalse);
+      newForm = finishFaculty(newForm);
       break;
     case 1:
       break;
@@ -198,7 +203,7 @@ function createForm (memberType) {
 }
 // Adds functionality to the inner buttons via aEL. 
 hiddenBtns.forEach((element, index)=>{
-  element.addEventListener("click", ()=>{
+  element.addEventListener("click", ()=>{ // Test and maybe just pass createForm()
     createForm(index);
   })});
 // END: (1) Objects involving creating college members

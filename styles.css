@@ -62,7 +62,7 @@ button:hover {
 .card {
   width: 85%;
   background-color: #ADD8E6;
-  margin: 4% 2%;
+  margin: 2%;
   padding: 2rem;
   display: flex;
   flex-direction: column;
@@ -133,6 +133,7 @@ input[type="radio"] {
 
 .submitBtn {
   font-size: 2.5rem;
+  padding: 0 1rem;
   font-family: 'Rufina', serif;
   color: #fff;
   background-color: #34b233;

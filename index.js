@@ -199,19 +199,12 @@ function createForm (memberType) {
   toggleInnerBtn();
   const theMain = document.querySelector("main");
   const fragment = createFragment(memberType);
-  theMain.appendChild(fragment);
+  theMain.prepend(fragment);
 }
 // Adds functionality to the inner buttons via aEL. 
 hiddenBtns.forEach((element, index)=>{
   element.addEventListener("click", ()=>{ // Test and maybe just pass createForm()
     createForm(index);
   })});
-// END: (1) Objects involving creating college members
 
-// START: (2) Member objects maintainance code.
-// const profArray = {
-//   const pArray = [];
-
-//   // Create a sorting method using merge sort.
-// };
-// END: (2) Member objects maintainance code.
+  // Check toggle

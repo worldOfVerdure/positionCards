@@ -14,12 +14,25 @@ function Professor (classesTaught, salary, researchStatus) {
   // TODO: make a too string.
 }
 
-function createMemberWrapper (memberTypeConstructor, name, memberType, id, email, jonInfo, moneyInfo, statusInfo) {
+function createMemberWrapper (memberTypeConstructor, name, memberType, id, email, jobInfo, moneyInfo, statusInfo) {
   const tempPerson = new Person(name, memberType, id, email);
   const tempCollegeMember = new memberTypeConstructor(jobInfo, moneyInfo, statusInfo);
   
   return Object.setPrototypeOf(tempCollegeMember, tempPerson);
 }
+
+const classDirectory = {
+  majors: ["Art", "Biology", "Chemistry", "Engineering", "Mathematics"],
+  art: ["Color Theory", "Sculpture", "Digital Design", "Art History"],
+  biology: ["Bio1", "Bio2", "Molecular Biology", "Botany"],
+  chemistry: ["Chem1", "Chem2", "Organic Chemistry", "Inorganic Chemistry"],
+  engineering: ["Physics 1", "Physics 2", "Aerodynamics", "Thermodynamics"],
+  math: ["Algebra", "Linear Algebra", "Calculus", "Partial Differential Equations", "Graph Theory"],
+};
+
+const dropMenuStatus = {
+  dropFlag: false,
+};
 
 // Expand or minimize plus icon button menu based on click event.
 const addPositionBtn = document.getElementById("addCardBtn");
@@ -37,24 +50,61 @@ addPositionBtn.addEventListener("click", ()=>{
   toggleInnerBtn(); // TODO: Look up event delegation for a better solution
 });
 
+function displayChoices (choicesMenu) {
+  
+  if (dropMenuStatus.dropFlag === false)
+    dropMenuStatus.dropFlag = true;
+  else
+    dropMenuStatus.dropFlag = false;
+}
+
+function createDropDown (newForm) {
+  const entireDropDown = document.createElement("div");
+  const dropDownDiv = document.createElement("div");
+  dropDownDiv.classList.add("dropDownInput");
+  const resevoir = document.createElement("div");
+  resevoir.setAttribute("class", "dropDownResevoir");
+  dropDownDiv.appendChild(resevoir);
+  const dropDownArrowBtn = document.createElement("button");
+  dropDownArrowBtn.setAttribute("type", "button");
+  const dropDownArrowImg = document.createElement("img");
+  dropDownArrowImg.setAttribute("src", "images/dropDown.svg");
+  dropDownArrowImg.setAttribute("alt", "Drop down arrow icon.");
+  dropDownArrowBtn.appendChild(dropDownArrowImg);
+  dropDownDiv.appendChild(dropDownArrowBtn);
+  entireDropDown.appendChild(dropDownDiv);
+  const choicesMenu = document.createElement("div");
+  choicesMenu.setAttribute("hidden", "");
+  choicesMenu.classList.add("choicesMenu");
+
+  dropDownArrowBtn.addEventListener("click", ()=>{
+    if (dropMenuStatus.dropFlag === false) {
+      displayChoices(choicesMenu);
+      choicesMenu.removeAttribute("hidden");
+    }
+
+    else {
+      choicesMenu.setAttribute("hidden", "");
+      dropMenuStatus.dropFlag = false;
+    }
+  });
+  entireDropDown.appendChild(choicesMenu);
+  newForm.appendChild(entireDropDown);
+}
+
 function finishFaculty (newForm) {
   const classLabel = document.createElement("label");
   classLabel.htmlFor = "class";
   classLabel.innerText = "Classes:";
   newForm.appendChild(classLabel);
-  const classInput = document.createElement("input");
-  classInput.setAttribute("type", "text");
-  classInput.setAttribute("id", "class");
-  classInput.setAttribute("name", "user_class");
-  classInput.setAttribute("required", "");
-  newForm.appendChild(classInput);
+  createDropDown(newForm);
 
   const moneyLabel = document.createElement("label");
   moneyLabel.htmlFor = "salary";
   moneyLabel.innerText = "Salary:";
   newForm.appendChild(moneyLabel);
   const moneyInput = document.createElement("input");
-  moneyInput.setAttribute("type", "text"); //Number correct?
+  moneyInput.setAttribute("type", "text");
   moneyInput.setAttribute("id", "salary");
   moneyInput.setAttribute("name", "user_salary");
   moneyInput.setAttribute("required", "");

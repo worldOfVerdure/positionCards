@@ -21,17 +21,25 @@ function createMemberWrapper (memberTypeConstructor, name, memberType, id, email
   return Object.setPrototypeOf(tempCollegeMember, tempPerson);
 }
 
-const classDirectory = {
-  majors: ["Art", "Biology", "Chemistry", "Engineering", "Mathematics"],
-  art: ["Color Theory", "Sculpture", "Digital Design", "Art History"],
-  biology: ["Bio1", "Bio2", "Molecular Biology", "Botany"],
-  chemistry: ["Chem1", "Chem2", "Organic Chemistry", "Inorganic Chemistry"],
-  engineering: ["Physics 1", "Physics 2", "Aerodynamics", "Thermodynamics"],
-  math: ["Algebra", "Linear Algebra", "Calculus", "Partial Differential Equations", "Graph Theory"],
+const dropDownCreatedFlag = {
+  flag: false,
 };
 
-const dropMenuStatus = {
-  dropFlag: false,
+const courseCounter = {
+  initialFlag: true,
+  maxCourse: 6,
+  courseCount: 0,
+  coursesSelected: [],
+  coursesSelectedMarker: [],
+};
+// Keep all properties, save for "majors" starting with capitilization
+const classDirectory = {
+  majors: ["Art", "Biology", "Chemistry", "Engineering", "Mathematics"],
+  Art: ["Color Theory", "Sculpture", "Digital Design", "Art History"],
+  Biology: ["Bio1", "Bio2", "Molecular Biology", "Botany"],
+  Chemistry: ["Chem1", "Chem2", "Organic Chemistry", "Inorganic Chemistry"],
+  Engineering: ["Physics 1", "Physics 2", "Aerodynamics", "Thermodynamics"],
+  Mathematics: ["Algebra", "Linear Algebra", "Calculus", "Partial Differential Equations", "Graph Theory"],
 };
 
 // Expand or minimize plus icon button menu based on click event.
@@ -50,12 +58,83 @@ addPositionBtn.addEventListener("click", ()=>{
   toggleInnerBtn(); // TODO: Look up event delegation for a better solution
 });
 
-function displayChoices (choicesMenu) {
-  
-  if (dropMenuStatus.dropFlag === false)
-    dropMenuStatus.dropFlag = true;
-  else
-    dropMenuStatus.dropFlag = false;
+function addClass (majorListItem) {
+  for (let i=0; i<courseCounter.maxCourse; ++i) {
+    if (courseCounter.coursesSelected[i] === "") {
+      courseCounter.coursesSelected[i] = majorListItem.innerText;
+      courseCounter.coursesSelectedMarker[i] = true;
+      ++courseCounter.courseCount;
+      return;
+    }
+  }
+}
+
+function removeClass (removedClass) {
+  for (let i=0; i<courseCounter.maxCourse; i++) {
+    if (courseCounter.coursesSelected[i] === removedClass) {
+      courseCounter.coursesSelected[i] = "";
+      courseCounter.coursesSelectedMarker[i] = false;
+      --courseCounter.courseCount;
+      return;
+    }
+  }
+}
+
+function courseAlreadySelected(className) {
+  for (let i=0; i<courseCounter.maxCourse; ++i) {
+    if (className === courseCounter.coursesSelected[i])
+      return true;
+  }
+
+  return false;
+}
+
+function courseSelected (majorListItem, resevoir) {
+  if (courseCounter.initialFlag === true) { // Set up courseCounter
+    for(let i=0; i<courseCounter.maxCourse; ++i) {
+      courseCounter.coursesSelected[i] = "";
+      courseCounter.coursesSelectedMarker[i] = false;
+    }
+    courseCounter.initialFlag = false;
+  }
+
+  if (courseCounter.courseCount>=courseCounter.maxCourse || courseAlreadySelected(majorListItem.innerText)) {
+    return;
+  }
+
+  const selectedClass = document.createElement("div");
+  selectedClass.innerText = majorListItem.innerText;
+  selectedClass.classList.add("selectedClass");
+  const deleteClassBtn = document.createElement("button");
+  deleteClassBtn.classList.add("deleteClassBtn");
+  const deleteClassImg = document.createElement("img");
+  deleteClassImg.setAttribute("src", "images/closeX.svg");
+  deleteClassImg.setAttribute("alt", "Image of an 'x' in the middle of a circle.");
+  deleteClassBtn.append(deleteClassImg);
+  selectedClass.append(deleteClassBtn);
+  resevoir.appendChild(selectedClass);
+  deleteClassBtn.addEventListener("click", event=>{
+    removeClass(event.currentTarget.parentElement.innerText);
+    selectedClass.remove();
+  });
+
+  addClass(majorListItem);
+}
+
+function createChoices (choicesMenu, resevoir) {
+  for (let i=0; i<classDirectory.majors.length; ++i) {
+    const majorHeader = document.createElement("ul");
+    majorHeader.innerText = classDirectory.majors[i];
+    choicesMenu.appendChild(majorHeader);
+    for (let j=0; j<classDirectory[classDirectory.majors[i]].length; ++j) {
+      const majorListItem = document.createElement("li");
+      majorListItem.innerText = classDirectory[classDirectory.majors[i]][j];
+      majorListItem.addEventListener("click", ()=>{
+        courseSelected(majorListItem, resevoir);
+      });
+      majorHeader.appendChild(majorListItem);
+    }
+  }
 }
 
 function createDropDown (newForm) {
@@ -76,16 +155,17 @@ function createDropDown (newForm) {
   const choicesMenu = document.createElement("div");
   choicesMenu.setAttribute("hidden", "");
   choicesMenu.classList.add("choicesMenu");
-
   dropDownArrowBtn.addEventListener("click", ()=>{
-    if (dropMenuStatus.dropFlag === false) {
-      displayChoices(choicesMenu);
+    if (!dropDownCreatedFlag.flag) { // First-time to actually create the choices menu once.
+      createChoices(choicesMenu, resevoir);
+      dropDownCreatedFlag.flag = true;
       choicesMenu.removeAttribute("hidden");
     }
-
-    else {
+    else if (dropDownCreatedFlag.flag && !choicesMenu.hasAttribute("hidden")) { // To close choices
       choicesMenu.setAttribute("hidden", "");
-      dropMenuStatus.dropFlag = false;
+    }
+    else { // To open choices again, and again...
+      choicesMenu.removeAttribute("hidden");
     }
   });
   entireDropDown.appendChild(choicesMenu);
@@ -94,8 +174,7 @@ function createDropDown (newForm) {
 
 function finishFaculty (newForm) {
   const classLabel = document.createElement("label");
-  classLabel.htmlFor = "class";
-  classLabel.innerText = "Classes:";
+  classLabel.innerText = "Classes: (no more than 6)";
   newForm.appendChild(classLabel);
   createDropDown(newForm);
 
@@ -150,7 +229,7 @@ function createFragment (memberType) {
 
   const newDiv = document.createElement("div");
   newDiv.classList.add("card");
-  fragment.append(newDiv); // New div added to fragment
+  fragment.append(newDiv);
 
   const newH2 = document.createElement("h2");
   newH2.classList.add("formH2");
@@ -182,7 +261,7 @@ function createFragment (memberType) {
 
   const nameLabel = document.createElement("label");
   nameLabel.htmlFor = "name";
-  nameLabel.innerText = "Name (first and last):";
+  nameLabel.innerText = "Name: (first and last)";
   newForm.appendChild(nameLabel);
   const nameInput = document.createElement("input");
   nameInput.setAttribute("type", "text");
@@ -256,5 +335,3 @@ hiddenBtns.forEach((element, index)=>{
   element.addEventListener("click", ()=>{ // Test and maybe just pass createForm()
     createForm(index);
   })});
-
-  // Check toggle

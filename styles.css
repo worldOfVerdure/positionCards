@@ -86,7 +86,6 @@ label {
 }
 
 input {
-  width: clamp(30%, fit-content, 70%); /* Not working as expected. */
   display: inline-block;
   font-size: 2.5rem;
   margin: 0 2rem .6rem 0;
@@ -120,18 +119,62 @@ input[class="formValidate"]:user-invalid + span::after {
 }
 
 .dropDownResevoir {
+  padding: .5rem;
   background-color: #fff;
   flex: 1 1 auto;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-auto-columns: 1fr 1fr;
+  column-gap: 2rem;
+}
 
-  overflow: hidden;
+.selectedClass, li {
+  border: .1rem solid #000;
+  border-radius: 1rem;
+  width: fit-content;
+  font-size: 1.75rem;
+  padding: .5rem;
+  align-items: center;
+}
+
+.selectedClass {
+  margin-bottom: .4rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.deleteClassBtn {
+  margin-left: 1rem;
+  width: fit-content;
+  height: fit-content;
+  border-radius: 50%;
 }
 
 .choicesMenu {
   width: 30rem;
-  height: 10rem;
-  margin: 1rem 0;
+  height: 20rem;
+  margin: .5rem 0;
   background-color: #fff;
   overflow-y: scroll;
+}
+
+ul {
+  margin: 0 0 0 1rem;
+  padding: 0;
+  list-style-type: none;
+  font-family: 'Neuton', serif;
+  font-size: 2.5rem;
+  font-weight: bold;
+  line-height: 1.5;
+}
+
+li {
+  margin: 0 0 .6rem 2rem;
+}
+
+li:hover {
+  cursor: pointer;
 }
 
 fieldset {

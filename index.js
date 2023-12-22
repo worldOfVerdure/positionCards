@@ -40,14 +40,14 @@ const classDirectory = {
   Chemistry: ["Chem1", "Chem2", "Organic Chemistry", "Inorganic Chemistry"],
   Engineering: ["Physics 1", "Physics 2", "Aerodynamics", "Thermodynamics"],
   Mathematics: ["Algebra", "Linear Algebra", "Calculus", "Partial Differential Equations", "Graph Theory"],
-};
+}; // Up to here is in dataStructures.js
 
-// Expand or minimize plus icon button menu based on click event.
+// Expand or minimize plus icon button menu based on click event. Inside iconTray.js.
 const addPositionBtn = document.getElementById("addCardBtn");
 const hiddenBtns = document.querySelectorAll("button.innerBtn");
 
 // Function call that toggles the class innerBtn.
-const toggleInnerBtn = () => {
+const toggleInnerBtn = () => { // from here ->
   hiddenBtns.forEach(element=>{
     element.classList.toggle("innerBtn");
   });
@@ -56,9 +56,9 @@ const toggleInnerBtn = () => {
 // Adds an evenlistener to the plus button.
 addPositionBtn.addEventListener("click", ()=>{
   toggleInnerBtn(); // TODO: Look up event delegation for a better solution
-});
+}); // to here -> inside iconTray.js.
 
-function addClass (majorListItem) {
+function addClass (majorListItem) { // All code from here ->
   for (let i=0; i<courseCounter.maxCourse; ++i) {
     if (courseCounter.coursesSelected[i] === "") {
       courseCounter.coursesSelected[i] = majorListItem.innerText;
@@ -85,10 +85,10 @@ function courseAlreadySelected(className) {
     if (className === courseCounter.coursesSelected[i])
       return true;
   }
-
   return false;
-}
+} // to here -> inside dropDownLogic.js.
 
+// TODO: make specific object for this card
 function courseSelected (majorListItem, resevoir) {
   if (courseCounter.initialFlag === true) { // Set up courseCounter
     for(let i=0; i<courseCounter.maxCourse; ++i) {
@@ -119,7 +119,7 @@ function courseSelected (majorListItem, resevoir) {
   });
 
   addClass(majorListItem);
-}
+} // inside dropDownDomMan.js.
 
 function createChoices (choicesMenu, resevoir) {
   for (let i=0; i<classDirectory.majors.length; ++i) {
@@ -135,7 +135,7 @@ function createChoices (choicesMenu, resevoir) {
       majorHeader.appendChild(majorListItem);
     }
   }
-}
+} // inside dropDownDomMan.js.
 
 function createDropDown (newForm) {
   const entireDropDown = document.createElement("div");
@@ -170,7 +170,7 @@ function createDropDown (newForm) {
   });
   entireDropDown.appendChild(choicesMenu);
   newForm.appendChild(entireDropDown);
-}
+} // inside dropDownDomMan.js.
 
 function finishFaculty (newForm) {
   const classLabel = document.createElement("label");
@@ -222,7 +222,7 @@ function finishFaculty (newForm) {
   researchFieldset.appendChild(labelFalse);
 
   return newForm;
-}
+} // Inside fromCreatedFaculty.js.
 // Event Listeners that populate the correct form to submit to make a true college member.
 function createFragment (memberType) {
   let fragment = new DocumentFragment();
@@ -328,9 +328,9 @@ function createForm (memberType) {
   toggleInnerBtn();
   const theMain = document.querySelector("main");
   const fragment = createFragment(memberType);
-  theMain.prepend(fragment);
+  theMain.prepend(fragment); // inside formCreateUbiquity.js
 }
-// Adds functionality to the inner buttons via aEL. 
+// Adds functionality to the inner buttons via aEL. Inside iconTray.js.
 hiddenBtns.forEach((element, index)=>{
   element.addEventListener("click", ()=>{ // Test and maybe just pass createForm()
     createForm(index);

@@ -1,8 +1,8 @@
-const dropDownCreatedFlag = {
+export const dropDownCreatedFlag = {
   flag: false,
 };
 
-const courseCounter = {
+export const courseCounter = {
   initialFlag: true,
   maxCourse: 6,
   courseCount: 0,
@@ -10,7 +10,7 @@ const courseCounter = {
   coursesSelectedMarker: [],
 };
 // Keep all properties, save for "majors" starting with capitilization
-const classDirectory = {
+export const classDirectory = {
   majors: ["Art", "Biology", "Chemistry", "Engineering", "Mathematics"],
   Art: ["Color Theory", "Sculpture", "Digital Design", "Art History"],
   Biology: ["Bio1", "Bio2", "Molecular Biology", "Botany"],
@@ -19,7 +19,7 @@ const classDirectory = {
   Mathematics: ["Algebra", "Linear Algebra", "Calculus", "Partial Differential Equations", "Graph Theory"],
 };
 
-function addClass (majorListItem) {
+export function addClass (majorListItem) {
   for (let i=0; i<courseCounter.maxCourse; ++i) {
     if (courseCounter.coursesSelected[i] === "") {
       courseCounter.coursesSelected[i] = majorListItem.innerText;
@@ -30,7 +30,7 @@ function addClass (majorListItem) {
   }
 }
 
-function removeClass (removedClass) {
+export function removeClass (removedClass) {
   for (let i=0; i<courseCounter.maxCourse; i++) {
     if (courseCounter.coursesSelected[i] === removedClass) {
       courseCounter.coursesSelected[i] = "";
@@ -41,7 +41,7 @@ function removeClass (removedClass) {
   }
 }
 
-function courseAlreadySelected(className) {
+export function courseAlreadySelected(className) {
   for (let i=0; i<courseCounter.maxCourse; ++i) {
     if (className === courseCounter.coursesSelected[i])
       return true;

@@ -1,4 +1,4 @@
-import createDropDown from "./dropDownDomMan.js";
+import {createDropDown} from "./dropDownDomMan.js";
 
 export function finishFaculty (newForm) {
   const classLabel = document.createElement("label");

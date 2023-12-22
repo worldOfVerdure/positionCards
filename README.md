@@ -8,9 +8,9 @@ removed, and looked up via hashtables with an average runtime of O(1).
 - [ ] Modularize single JS file
   - [X] iconTray.js
   - [X] fromCreateUbiquity.js
-  - [ ] fromCreateFaculty.js
-  - [ ] dropDownDomMan.js
-  - [ ] dropDownLogic.js
+  - [X] fromCreateFaculty.js
+  - [X] dropDownDomMan.js
+  - [X] dropDownLogic.js
   - [ ] dataStructures.js
 - [ ] Utilize hashtable for quick insert, delete, and search features
 - [ ] Add animations for cards

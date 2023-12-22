@@ -1,4 +1,4 @@
-import createForm from "./formCreateUbiquity.js"; // first ever import
+import {createForm} from "./formCreateUbiquity.js"; // first ever import
 
 // Expand or minimize plus icon button menu based on click event.
 const addPositionBtn = document.getElementById("addCardBtn");

@@ -1,5 +1,5 @@
-import toggleInnerBtn from "./iconTray.js";
-import finishFaculty from "./formCreateFaculty.js";
+import {toggleInnerBtn} from "./iconTray.js";
+import {finishFaculty} from "./formCreateFaculty.js";
 
 export function createForm (memberType) { //first export at 12/22/2023 @ 11:31 am in Granpa's house. Dad is behind me working.
   toggleInnerBtn(); // needs to be imported so this file knows what the heck I am talking about

@@ -49,7 +49,7 @@ function createFragment (memberType) {
   nameInput.setAttribute("name", "user_name");
   nameInput.setAttribute("required", "");
   nameInput.setAttribute("title", "Only alphabetic characters.");
-  nameInput.setAttribute("pattern", "^[A-Za-z]+(\\s[A-Za-z]+)+$"); //add name-name as an || with the \\s portion
+  nameInput.setAttribute("pattern", "^[A-Za-z]+(\\s[A-Za-z]+)+$"); //add name-name as an || with the \\s portion. TODO: Allow hyphens.
   nameInput.classList.add("formValidate");
   newForm.appendChild(nameInput);
   newForm.appendChild(validateSpanText);

@@ -1,4 +1,8 @@
-import {createForm} from "./formCreateUbiquity.js"; // first ever import
+import {createForm, changeForm} from "./formCreateUbiquity.js"; // first ever import
+
+export const cardStatus = {
+  exists: false,
+};
 
 // Expand or minimize plus icon button menu based on click event.
 const addPositionBtn = document.getElementById("addCardBtn");
@@ -16,5 +20,8 @@ addPositionBtn.addEventListener("click", ()=>{
 // Adds functionality to the inner buttons via aEL.
 hiddenBtns.forEach((element, index)=>{
   element.addEventListener("click", ()=>{
-    createForm(index);
+    if (!cardStatus.exists)
+      createForm(index);
+    else
+      changeForm(index);
   })});

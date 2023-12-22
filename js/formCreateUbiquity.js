@@ -1,43 +1,63 @@
 import {toggleInnerBtn} from "./iconTray.js";
 import {finishFaculty} from "./formCreateFaculty.js";
 
+function deleteEntireCard(theMain) {
+  // code here to properly remove objects and arrays and any data in the card creation process
+  theMain.removeChild(theMain.firstElementChild);
+}
+
 export function createForm (memberType) { //first export at 12/22/2023 @ 11:31 am in Granpa's house. Dad is behind me working.
   toggleInnerBtn(); // needs to be imported so this file knows what the heck I am talking about
   const theMain = document.querySelector("main");
-  const fragment = createFragment(memberType);
-  theMain.prepend(fragment);
+  const fragment = createFragment(memberType, theMain);
+  theMain.append(fragment);
 }
 
-function createFragment (memberType) {
+function createFragment (memberType, theMain) {
   let fragment = new DocumentFragment();
-  const newDiv = document.createElement("div");
-  newDiv.classList.add("card");
-  fragment.append(newDiv);
-  const newH2 = document.createElement("h2");
-  newH2.classList.add("formH2");
+  const entireCard = document.createElement("div");
+  entireCard.classList.add("card");
+  entireCard.setAttribute("id", "entireCardNode"); // for deletion purposes
+  fragment.append(entireCard);
+  const cardHeaderAndDelete = document.createElement("div");
+  cardHeaderAndDelete.setAttribute("id", "headerAndDelete");
+  const cardHeader = document.createElement("h2");
+  cardHeader.classList.add("formH2");
   switch (memberType) {
     case 0:
-      newH2.innerText = "Faculty";
+      cardHeader.innerText = "Faculty";
       break;
     case 1:
-      newH2.innerText = "Staff";
+      cardHeader.innerText = "Staff";
       break;
     case 2:
-      newH2.innerText = "Admin";
+      cardHeader.innerText = "Admin";
       break;
     case 3:
-      newH2.innerText = "Student";
+      cardHeader.innerText = "Student";
       break;
     default:
-      newH2.innerText = "Error";
+      cardHeader.innerText = "Error";
   }
-  newDiv.appendChild(newH2);
+  cardHeaderAndDelete.appendChild(cardHeader);
+  const cardDeleteBtn = document.createElement("button");
+  cardDeleteBtn.addEventListener("click", ()=>{
+    deleteEntireCard(theMain);
+  });
+  const cardDeleteImg = document.createElement("img");
+  cardDeleteImg.setAttribute("src", "images/trash.svg");
+  cardDeleteImg.setAttribute("alt", "Image of a trashcan.");
+  cardDeleteImg.setAttribute("title", "Delete entire card.");
+  cardDeleteBtn.append(cardDeleteImg);
+  cardHeaderAndDelete.appendChild(cardDeleteBtn);
+  entireCard.appendChild(cardHeaderAndDelete);
+
   const validateSpanText = document.createElement("span");
   const validateSpanText2 = document.createElement("span");
   let newForm = document.createElement("form");
   newForm.setAttribute("action", "");
   newForm.setAttribute("method", "post");
-  newDiv.appendChild(newForm);
+  entireCard.appendChild(newForm);
 
   const nameLabel = document.createElement("label");
   nameLabel.htmlFor = "name";

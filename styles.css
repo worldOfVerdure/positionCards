@@ -72,10 +72,22 @@ button:hover {
   gap: 3rem;
 }
 
+#headerAndDelete {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
 .formH2 {
   font-size: 4rem;
   font-family: 'Neuton', serif;
   margin: 0;
+  flex: 0;
+}
+
+#headerAndDelete > button {
+  background-color: #ADD8E6;
 }
 
 label {

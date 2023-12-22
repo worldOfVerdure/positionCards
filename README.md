@@ -14,3 +14,9 @@ removed, and looked up via hashtables with an average runtime of O(1).
   - [ ] dataStructures.js
 - [ ] Utilize hashtable for quick insert, delete, and search features
 - [ ] Add animations for cards
+
+## TODO:
+- [ ] Make card size responsize
+- [ ] Make font-size responsize
+- [X] Add delete entire card feature
+- [ ] Resize class delete button

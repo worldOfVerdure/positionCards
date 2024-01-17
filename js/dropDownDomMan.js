@@ -18,9 +18,19 @@ export function createDropDown (newForm) {
   const choicesMenu = document.createElement("div");
   choicesMenu.setAttribute("hidden", "");
   choicesMenu.classList.add("choicesMenu");
+  // Instantiate object to count courses for a college member and avoid redundant courses being selected.
+  const courseCounterObj = new dDLogic.CourseCounter(true, 6, 0, [], []);
+  if (courseCounterObj.initialFlag === true) { // Set up courseCounter
+    for(let i=0; i<courseCounterObj.maxCourse; ++i) {
+      courseCounterObj.coursesSelected[i] = "";
+      courseCounterObj.coursesSelectedMarker[i] = false;
+    }
+    courseCounterObj.initialFlag = false;
+  }
+
   dropDownArrowBtn.addEventListener("click", ()=>{
-    if (!dDLogic.dropDownCreatedFlag.flag) { // First-time creating the choices menu. Only called once per card.
-      createChoices(choicesMenu, resevoir);
+    if (!dDLogic.dropDownCreatedFlag.flag) { // First-time creating the choices menu. Only called once per card. AYO! Make sure to reset this flag upon deletion of a card or the submission of a card.
+      createChoices(choicesMenu, resevoir, courseCounterObj);
       dDLogic.dropDownCreatedFlag.flag = true;
       choicesMenu.removeAttribute("hidden");
     }
@@ -35,7 +45,7 @@ export function createDropDown (newForm) {
   return newForm.appendChild(entireDropDown);
 }
 
-function createChoices (choicesMenu, resevoir) {
+function createChoices (choicesMenu, resevoir, courseCounterObj) {
   for (let i=0; i<dDLogic.classDirectory.majors.length; ++i) {
     const majorHeader = document.createElement("ul");
     majorHeader.innerText = dDLogic.classDirectory.majors[i];
@@ -44,7 +54,7 @@ function createChoices (choicesMenu, resevoir) {
       const majorListItem = document.createElement("li");
       majorListItem.innerText = dDLogic.classDirectory[dDLogic.classDirectory.majors[i]][j];
       majorListItem.addEventListener("click", ()=>{
-        courseSelected(majorListItem, resevoir);
+        courseSelected(majorListItem, resevoir, courseCounterObj);
       });
       majorHeader.appendChild(majorListItem);
     }
@@ -52,16 +62,8 @@ function createChoices (choicesMenu, resevoir) {
 }
 
 // TODO: make specific object for this card
-function courseSelected (majorListItem, resevoir) {
-  if (dDLogic.courseCounter.initialFlag === true) { // Set up courseCounter
-    for(let i=0; i<dDLogic.courseCounter.maxCourse; ++i) {
-      dDLogic.courseCounter.coursesSelected[i] = "";
-      dDLogic.courseCounter.coursesSelectedMarker[i] = false;
-    }
-    dDLogic.courseCounter.initialFlag = false;
-  }
-
-  if (dDLogic.courseCounter.courseCount>=dDLogic.courseCounter.maxCourse || dDLogic.courseAlreadySelected(majorListItem.innerText)) {
+function courseSelected (majorListItem, resevoir, courseCounterObj) {
+  if (courseCounterObj.courseCount>=courseCounterObj.maxCourse || dDLogic.courseAlreadySelected(majorListItem.innerText, courseCounterObj)) {
     return;
   }
 
@@ -77,9 +79,9 @@ function courseSelected (majorListItem, resevoir) {
   selectedClass.append(deleteClassBtn);
   resevoir.appendChild(selectedClass);
   deleteClassBtn.addEventListener("click", event=>{
-    dDLogic.removeClass(event.currentTarget.parentElement.innerText);
+    dDLogic.removeClass(event.currentTarget.parentElement.innerText, courseCounterObj);
     selectedClass.remove();
   });
 
-  dDLogic.addClass(majorListItem);
+  dDLogic.addClass(majorListItem, courseCounterObj);
 }

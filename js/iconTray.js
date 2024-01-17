@@ -3,7 +3,6 @@ import {createForm, changeForm} from "./formCreateUbiquity.js"; // first ever im
 export const cardStatus = {
   exists: false,
 };
-
 // Expand or minimize plus icon button menu based on click event.
 const addPositionBtn = document.getElementById("addCardBtn");
 const hiddenBtns = document.querySelectorAll("button.innerBtn");

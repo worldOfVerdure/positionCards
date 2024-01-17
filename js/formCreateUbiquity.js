@@ -1,8 +1,16 @@
 import {toggleInnerBtn, cardStatus} from "./iconTray.js";
 import {finishFaculty} from "./formCreateFaculty.js";
+import {dropDownCreatedFlag} from "./dropDownLogic.js";
 
-export function createForm (memberType) { //first export at 12/22/2023 @ 11:31 am in Granpa's house. Dad is behind me working.
-  toggleInnerBtn(); // needs to be imported so this file knows what the heck I am talking about
+function deleteEntireCard(theMain) {
+  // code here to properly remove objects and arrays and any data in the card creation process
+  theMain.removeChild(theMain.firstElementChild);
+  cardStatus.exists = false;
+  dropDownCreatedFlag.flag = false;
+}
+
+export function createForm (memberType) { //first export at 12/22/2023 @ 11:31. Am in Granpa's house. Dad is behind me working.
+  toggleInnerBtn();
   const theMain = document.querySelector("main");
   const fragment = createFragment(memberType, theMain);
   theMain.append(fragment);
@@ -11,6 +19,7 @@ export function createForm (memberType) { //first export at 12/22/2023 @ 11:31 a
 export function changeForm (memberType) {
   const getMain = document.querySelector("main");
   getMain.removeChild(getMain.firstElementChild);
+  dropDownCreatedFlag.flag = false;
   createForm(memberType);
 }
 
@@ -128,10 +137,4 @@ function createFragment (memberType, theMain) {
 
   cardStatus.exists = true;
   return fragment;
-}
-
-function deleteEntireCard(theMain) {
-  // code here to properly remove objects and arrays and any data in the card creation process
-  theMain.removeChild(theMain.firstElementChild);
-  cardStatus.exists = false;
 }

@@ -1,13 +1,13 @@
 export const dropDownCreatedFlag = { //zzz Good luck!
   flag: false,
 };
-
-export const courseCounter = {
-  initialFlag: true,
-  maxCourse: 6,
-  courseCount: 0,
-  coursesSelected: [],
-  coursesSelectedMarker: [],
+// Actual course array needs to be assigned to the faculty object in dataStructures.js
+export function CourseCounter(initialFlag, maxCourse, courseCount, coursesSelected, coursesSelectedMarker) {
+  this.initialFlag = initialFlag;
+  this.maxCourse = maxCourse;
+  this.courseCount = courseCount;
+  this.coursesSelected = coursesSelected;
+  this.coursesSelectedMarker = coursesSelectedMarker;
 };
 // Keep all properties, save for "majors" starting with capitilization
 export const classDirectory = {
@@ -19,31 +19,31 @@ export const classDirectory = {
   Mathematics: ["Algebra", "Linear Algebra", "Calculus", "Partial Differential Equations", "Graph Theory"],
 };
 
-export function addClass (majorListItem) {
-  for (let i=0; i<courseCounter.maxCourse; ++i) {
-    if (courseCounter.coursesSelected[i] === "") {
-      courseCounter.coursesSelected[i] = majorListItem.innerText;
-      courseCounter.coursesSelectedMarker[i] = true;
-      ++courseCounter.courseCount;
+export function addClass (majorListItem, courseCounterObj) {
+  for (let i=0; i<courseCounterObj.maxCourse; ++i) {
+    if (courseCounterObj.coursesSelected[i] === "") {
+      courseCounterObj.coursesSelected[i] = majorListItem.innerText;
+      courseCounterObj.coursesSelectedMarker[i] = true;
+      ++courseCounterObj.courseCount;
       return;
     }
   }
 }
 
-export function removeClass (removedClass) {
-  for (let i=0; i<courseCounter.maxCourse; i++) {
-    if (courseCounter.coursesSelected[i] === removedClass) {
-      courseCounter.coursesSelected[i] = "";
-      courseCounter.coursesSelectedMarker[i] = false;
-      --courseCounter.courseCount;
+export function removeClass (removedClass, courseCounterObj) {
+  for (let i=0; i<courseCounterObj.maxCourse; i++) {
+    if (courseCounterObj.coursesSelected[i] === removedClass) {
+      courseCounterObj.coursesSelected[i] = "";
+      courseCounterObj.coursesSelectedMarker[i] = false;
+      --courseCounterObj.courseCount;
       return;
     }
   }
 }
 
-export function courseAlreadySelected(className) {
-  for (let i=0; i<courseCounter.maxCourse; ++i) {
-    if (className === courseCounter.coursesSelected[i])
+export function courseAlreadySelected(className, courseCounterObj) {
+  for (let i=0; i<courseCounterObj.maxCourse; ++i) {
+    if (className === courseCounterObj.coursesSelected[i])
       return true;
   }
   return false;

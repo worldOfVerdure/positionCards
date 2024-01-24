@@ -21,13 +21,3 @@ removed, and looked up via hashtables with an average runtime of O(1).
 - [ ] Hook up logic to DOM manipulation
 
 ## Current Known Issues:
-~~Currently, when I change the card, the drop down selection menu is blank. It is very likely that in
-the dropDownLogic.js with the dropDownCreatedFlag.flag is still set to true, and thus, the menu
-believes it has already been created, and thus, never repopulates. The solution is to reset this
-boolean value. I should reset the entire object: courseCounter, to be safe. Look for the //zzz in
-the dropDownLogic.js.~~
-
-So I seem to have added the flags in the correct place, yet now I am able to add a unlimited number
-of classes and can select any number of  redundancies. The good news is that reseting the card
-allows the menu to repopulate. I need to see why my new object is not recalling values or the
-functions are not being called. A debugging session might be in order.

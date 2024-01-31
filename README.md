@@ -5,7 +5,7 @@ member is submitted, they will be added to the "card stacks" where members may b
 removed, and looked up via hashtables with an average runtime of O(1).
 
 ## Current goals: 
-- [ ] Modularize single JS file
+- [X] Modularize single JS file
   - [X] iconTray.js
   - [X] fromCreateUbiquity.js
   - [X] fromCreateFaculty.js
@@ -21,3 +21,4 @@ removed, and looked up via hashtables with an average runtime of O(1).
 - [ ] Hook up logic to DOM manipulation
 
 ## Current Known Issues:
+Potential memory leaks with addeventlistener.

@@ -9,7 +9,7 @@ const hiddenBtns = document.querySelectorAll("button.innerBtn");
 export const toggleInnerBtn = () => {
   hiddenBtns.forEach(element=>{
     element.classList.toggle("innerBtn");
-  }); // Suggestion: Could place all buttons in a div and hide those to make code run faster.
+  });
 }
 // Adds an evenlistener to the plus button.
 addPositionBtn.addEventListener("click", ()=>{

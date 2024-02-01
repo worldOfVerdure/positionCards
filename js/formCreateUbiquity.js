@@ -9,7 +9,7 @@ function deleteEntireCard(theMain) {
   dropDownCreatedFlag.flag = false;
 }
 
-export function createForm (memberType) { //first export at 12/22/2023 @ 11:31. Am in Granpa's house. Dad is behind me working.
+export function createForm (memberType) {
   toggleInnerBtn();
   const theMain = document.querySelector("main");
   const fragment = createFragment(memberType, theMain);

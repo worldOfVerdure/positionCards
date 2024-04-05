@@ -1,7 +1,7 @@
 import {createForm, changeForm} from "./formCreateUbiquity.js";
 export const cardStatus = {
   exists: false,
-};
+}; // TODO: Create slide animation for hidden buttons
 // Expand or minimize plus icon button menu based on click event.
 const addPositionBtn = document.getElementById("addCardBtn");
 const hiddenBtns = document.querySelectorAll("button.innerBtn");

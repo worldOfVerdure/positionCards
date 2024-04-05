@@ -1,4 +1,4 @@
-import {createDropDown} from "./dropDownDomMan.js";
+import {createDropDown} from "./dropDownMenu.js";
 
 export function finishFaculty (newForm) {
   const classLabel = document.createElement("label");
@@ -6,6 +6,7 @@ export function finishFaculty (newForm) {
   newForm.appendChild(classLabel);
   newForm = createDropDown(newForm);
 
+  const validateSpanTextSalary = document.createElement("span");
   const moneyLabel = document.createElement("label");
   moneyLabel.htmlFor = "salary";
   moneyLabel.innerText = "Salary:";
@@ -15,8 +16,12 @@ export function finishFaculty (newForm) {
   moneyInput.setAttribute("id", "salary");
   moneyInput.setAttribute("name", "user_salary");
   moneyInput.setAttribute("required", "");
+  moneyInput.setAttribute("pattern", "^\\d{5,6}$");
+  moneyInput.classList.add("formValidate");
   newForm.appendChild(moneyInput);
+  newForm.appendChild(validateSpanTextSalary);
 
+  // TODO: ensure size of box doesn't increase with drop down menu fluctuations
   const researchFieldset = document.createElement("fieldset");
   newForm.appendChild(researchFieldset);
   const researchLegend = document.createElement("legend");

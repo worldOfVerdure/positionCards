@@ -108,7 +108,7 @@ input[class="formValidate"]:valid {
   outline: .2rem solid #34b233;
 }
 
-input[class="formValidate"]:valid + span::after {
+input[class="formValidate"]:valid + span::before {
   content: "✓";
   color: #34b233;
   font-size: 3rem;
@@ -118,7 +118,7 @@ input[class="formValidate"]:user-invalid {
   outline: .2rem solid #FF6347;
 }
 
-input[class="formValidate"]:user-invalid + span::after {
+input[class="formValidate"]:user-invalid + span::before {
   content: "✖";
   color: #FF6347;
   font-size: 3rem;
@@ -190,6 +190,7 @@ li:hover {
 }
 
 fieldset {
+  width: fit-content;
   margin: 2rem 0;
 }
 

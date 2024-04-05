@@ -1,4 +1,4 @@
-export const dropDownCreatedFlag = { //zzz Good luck!
+export const dropDownCreatedFlag = {
   flag: false,
 };
 // Actual course array needs to be assigned to the faculty object in dataStructures.js

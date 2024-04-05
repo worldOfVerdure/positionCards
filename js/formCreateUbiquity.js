@@ -3,7 +3,6 @@ import {finishFaculty} from "./formCreateFaculty.js";
 import {dropDownCreatedFlag} from "./dropDownLogic.js";
 
 function deleteEntireCard(theMain) {
-  // code here to properly remove objects and arrays and any data in the card creation process
   theMain.removeChild(theMain.firstElementChild);
   cardStatus.exists = false;
   dropDownCreatedFlag.flag = false;
@@ -62,8 +61,8 @@ function createFragment (memberType, theMain) {
   cardHeaderAndDelete.appendChild(cardDeleteBtn);
   entireCard.appendChild(cardHeaderAndDelete);
 
-  const validateSpanText = document.createElement("span");
-  const validateSpanText2 = document.createElement("span");
+  const validateSpanTextName = document.createElement("span");
+  const validateSpanTextID = document.createElement("span");
   let newForm = document.createElement("form");
   newForm.setAttribute("action", "");
   newForm.setAttribute("method", "post");
@@ -79,10 +78,10 @@ function createFragment (memberType, theMain) {
   nameInput.setAttribute("name", "user_name");
   nameInput.setAttribute("required", "");
   nameInput.setAttribute("title", "Only alphabetic characters.");
-  nameInput.setAttribute("pattern", "^[A-Za-z]+(\\s[A-Za-z]+)+$"); //add name-name as an || with the \\s portion. TODO: Allow hyphens.
+  nameInput.setAttribute("pattern", "^[A-Za-z]+(\\s[A-Za-z]+)+$"); // TODO: Allow hyphens and more name types
   nameInput.classList.add("formValidate");
   newForm.appendChild(nameInput);
-  newForm.appendChild(validateSpanText);
+  newForm.appendChild(validateSpanTextName);
 
   const idLabel = document.createElement("label");
   idLabel.htmlFor = "id";
@@ -96,10 +95,11 @@ function createFragment (memberType, theMain) {
   idInput.setAttribute("title", "Enter a five digit ID");
   idInput.setAttribute("required", "");
   idInput.classList.add("formValidate");
-  idInput.setAttribute("pattern", "^\\d{5}$");
+  idInput.setAttribute("pattern", "^\\d{5}$"); //regex anchors
   newForm.appendChild(idInput);
-  newForm.appendChild(validateSpanText2);
+  newForm.appendChild(validateSpanTextID);
 
+  // TODO: validate email as well.
   const emailLabel = document.createElement("label");
   emailLabel.htmlFor = "email";
   emailLabel.innerText = "Email:";

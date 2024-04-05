@@ -17,6 +17,10 @@ function courseSelected (majorListItem, resevoir, courseCounterObj) {
   deleteClassBtn.append(deleteClassImg);
   selectedClass.append(deleteClassBtn);
   resevoir.appendChild(selectedClass);
+  // deleteClassBtn.addEventListener("touchstart", event=>{
+  //   dDLogic.removeClass(event.currentTarget.parentElement.innerText, courseCounterObj);
+  //   selectedClass.remove();
+  // });
   deleteClassBtn.addEventListener("click", event=>{
     dDLogic.removeClass(event.currentTarget.parentElement.innerText, courseCounterObj);
     selectedClass.remove();
